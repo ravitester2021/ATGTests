@@ -44,34 +44,31 @@ function startPlaying () {
   })
 
   cy.log('Clicked on requested element...')
-  const randomVal = getRandomArbitrary(0, 9)
+  let randomVal = getRandomArbitrary(0, 9)
 
   cy.log(`randomVal-0 is : ${randomVal}`)
-
   const randomVal1 = getRandomArbitrary(0, 9)
 
   cy.log(`randomVal-1 is : ${randomVal1}`)
-
   const randomVal2 = getRandomArbitrary(0, 9)
 
   cy.log(`randomVal-2 is : ${randomVal2}`)
 
   cy.get('div[class*="tooltips-coupon"] div[class*="starts"]')
-    .each(($el) => {
-      let cnt = 1
+  .each(($el) => {
+    // let cnt = 1
+    const avilable_legs_text = $el.text()
 
-      const avilable_legs_text = $el.text()
+    cy.log(`Leg is : ${avilable_legs_text}`)
 
-      cy.log(`Leg is : ${avilable_legs_text}`)
+    cy.wrap($el).find('button').each(($button) => {
+      let buttonTxt = $button.text()
 
-      cy.wrap($el).find('button').each(($button) => {
-        const buttonTxt = $button.text()
-
-        cy.log(`buttonTxt is : ${buttonTxt}`)
-        if (buttonTxt == randomVal) {
-          cy.wrap($button).click({ force: true })
-          cy.log(`Clicked on ${randomVal}`)
-        }
-      })
+      cy.log(`buttonTxt is : ${buttonTxt}`)
+      if (buttonTxt == randomVal) {
+        cy.wrap($button).click({ force: true })
+        cy.log(`Clicked on ${randomVal}`)
+      }
     })
+  })
 }
