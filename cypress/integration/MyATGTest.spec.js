@@ -17,7 +17,7 @@ describe('ATG Tests', () => {
     cy.log('Clicked on “Spelkander” ')
     cy.location('pathname', { timeout: 8000 }).should('include', '/idag')
     cy.log('Wait for next page to load...')
-    cy.get('table', { timeout: 10000 }).should('be.visible').then(() => {
+    cy.get('table', { timeout: 10000 }).then(() => {
       if (cy.get('table').find('tr').its('length').should('be.gte', 2)) {
         cy.log('Today Match Available')
         startPlaying()
